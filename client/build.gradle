@@ -16,10 +16,14 @@ apply plugin: 'kotlin2js'
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "com.wallace.glen.js:MithrilKt:1.0-SNAPSHOT"
     compile project(':shared-js')
 }
 
