@@ -1,0 +1,37 @@
+group 'com.praeses.demo'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.1.2-2'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin2js'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+}
+
+task deleteSource(type: Delete) {
+    delete fileTree(dir: sourceSets.main.kotlin.srcDirs[0])
+}
+
+// Hack to get sharing of code to work. :(
+task copySource(type: Copy) {
+    from project(':shared').sourceSets.main.kotlin.srcDirs[0]
+    into sourceSets.main.kotlin.srcDirs[0]
+}
+
+copySource.dependsOn deleteSource
+
+build.dependsOn copySource
