@@ -12,6 +12,11 @@ class PersonController {
     private var nextId = 0
     private val db: MutableMap<Int, Person> = mutableMapOf()
 
+    init {
+        save(Person(firstName = "Clark", lastName = "Kent"))
+        save(Person(firstName = "Bruce", lastName = "Wayne"))
+    }
+
     @RequestMapping(value = "/list", method = arrayOf(RequestMethod.GET))
     fun list() = db.values
 
@@ -20,6 +25,10 @@ class PersonController {
 
     @RequestMapping(value = "/save", method = arrayOf(RequestMethod.POST))
     fun save(@RequestBody person: Person): Boolean {
+        if(person.id == Int.MIN_VALUE) {
+            person.id = nextId++
+        }
+
         db[person.id] = person
         return true
     }
