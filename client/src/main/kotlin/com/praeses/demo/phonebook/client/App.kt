@@ -1,6 +1,7 @@
 package com.praeses.demo.phonebook.client
 
-import com.praeses.demo.phonebook.client.person.PersonListView
+import com.praeses.demo.phonebook.client.layout.Layout
+import com.praeses.demo.phonebook.client.person.PersonListRouteResolver
 import com.wallace.glen.js.mithril.Mithril
 import com.wallace.glen.js.toAssociativeArray
 import kotlin.browser.document
@@ -10,9 +11,15 @@ import kotlin.browser.document
  */
 fun main(args: Array<String>) {
     val root = document.body!!
+    val layout = Layout()
 
-    val personListView = PersonListView()
-    val routes = mapOf("/list" to personListView).toAssociativeArray()
+    val listRouteResolver = PersonListRouteResolver(layout)
 
-    Mithril.route(root, "/list", routes)
+    val routeResolver: dynamic = mapOf(
+            "/list" to listRouteResolver
+    ).toAssociativeArray()
+
+
+
+    Mithril.route(root, "/list", routeResolver)
 }
