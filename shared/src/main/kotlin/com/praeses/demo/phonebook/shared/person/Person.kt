@@ -8,7 +8,6 @@ class Person (
 
     var firstName: String = "",
     var lastName: String = "",
-    var middleName: String = "",
 
     var address: String = "",
     var phone: String = ""

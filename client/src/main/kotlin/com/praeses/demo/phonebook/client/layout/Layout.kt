@@ -20,6 +20,6 @@ class Layout : Component {
     }
 
     private val navMenu = m("nav.menu", arrayOf(
-            m("a[href='/list'", object {val oncreate = Mithril.route::link}, "People")
+            m("a[href='/list'", object {val oncreate = Mithril.route::link}, "Contacts")
     ))
 }
